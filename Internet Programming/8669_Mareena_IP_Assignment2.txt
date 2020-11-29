@@ -1,0 +1,53 @@
+Name: Mareena Fernandes
+Roll no.: 8669
+Class: TE IT
+Batch: B
+
+
+Steps to create a Hello World Application
+
+1. Run "pip install Django" on commandline to install Django
+2. You can run "python -m django --version" to check if Django got installed
+3. cd into the directory where you want to setup your project
+4. Run the command "django-admin startproject hello_world_app" to create a django project folder named hello_world_app
+5. cd into the "hello_world_app" directory
+6. Verify your django project works by running the command "python manage.py runserver"
+7. Youll get an output with a url where your development server is running on, open the url to check your project
+8. By default the server will run on port 8000, but if u want to change you can do it by "python manage.py runserver 8080" for port 8080 or any port
+9. To create the hello world application in the same directory run the command "python manage.py startapp main_app"
+10. Inside views.py in main_app directory import HttpResponse from django.http 
+    and define a view as follows which returns a Hello world response
+
+    *This will be the views.py inside main_app*
+
+        from django.http import HttpResponse
+
+        def index(request):
+            return HttpResponse("Hello World, how are ya?")
+
+11. Create a file named urls.py in main_app directory
+12. Map the view created previously to index url by writing the following code in urls.py just created
+
+    *urls.py inside main_app*
+
+        from django.urls import path
+        from . import views
+
+        urlpatterns = [
+            path('', views.index, name='index'),
+        ]
+
+13. Add the following code in the hello_world_app/urls.py file
+
+    *urls.py inside hello_world_app*
+
+        from django.contrib import admin
+        from django.urls import include, path
+
+        urlpatterns = [
+            path('', include('main_app.urls')),
+            path('admin/', admin.site.urls),
+        ]
+
+14. Check whether the index view is connected by running the following command again "python manage.py runserver"
+15. Open http://127.0.0.1.8000/ and youll be able to see the response "Hello World, how are ya?"
